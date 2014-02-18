@@ -83,27 +83,33 @@ class YouTubeIframePlayer
             when YT.PlayerState.CUED then @notifyNewEvent 'cued', e.data
     )
 
+  getNewHeight = (originalWidth, originalHeight, newWidth) ->
+    Math.round originalHeight / originalWidth * newWidth
+
+  isZeroOrEmpty = (val) -> val is "0" or val is ""
+
+  resizeIframe = (iframe) ->
+    width         = iframe.width
+    height        = iframe.height
+    parent        = iframe.parentNode
+    parentWidth   = parent.offsetWidth
+    newHeight     = getNewHeight(width, height, parentWidth)
+
+    # Do not resize parent if the iframe is supposed to be hidden
+    unless isZeroOrEmpty(parent.style.opacity) or isZeroOrEmpty(parent.style.height)
+      parent.style.height   = "#{newHeight}px"
+
+    iframe.style.width    = "#{parentWidth}px"
+    iframe.style.height   = "#{newHeight}px"
+
   respondToResize: =>
     iframe = @player.getIframe()
+    resizeIframe(iframe)
     timer = null
-    getNewHeight = (originalWidth, originalHeight, newWidth) ->
-      Math.round originalHeight / originalWidth * newWidth
-    isZeroOrEmpty = (val) -> val is "0" or val is ""
     window.onresize = =>
       clearTimeout timer
       timer = setTimeout =>
-        width         = iframe.width
-        height        = iframe.height
-        parent        = iframe.parentNode
-        parentWidth   = parent.offsetWidth
-        newHeight     = getNewHeight(width, height, parentWidth)
-
-        # Do not resize parent if the iframe is supposed to be hidden
-        unless isZeroOrEmpty(parent.style.opacity) or isZeroOrEmpty(parent.style.height)
-          parent.style.height   = "#{newHeight}px"
-
-        iframe.style.width    = "#{parentWidth}px"
-        iframe.style.height   = "#{newHeight}px"
+        resizeIframe(iframe)
       , @resizeTimeout
 
 root.YouTubeIframePlayer = YouTubeIframePlayer
