@@ -39,12 +39,6 @@ class YouTubeIframePlayer
     @responsiveIframe   = responsiveIframe
     @resizeTimeout      = resizeTimeout
 
-  insertApi = ->
-    script = document.createElement 'script'
-    script.src = 'https://www.youtube.com/iframe_api'
-    firstScriptTag = document.getElementsByTagName('script')[0]
-    firstScriptTag.parentNode.insertBefore(script, firstScriptTag)
-
   insertPlayer: ->
     @player = new YT.Player(@playerContainerId,
       width: @width
@@ -83,6 +77,12 @@ class YouTubeIframePlayer
             when YT.PlayerState.CUED then @notifyNewEvent 'cued', e.data
     )
 
+  insertApi = ->
+    script          = document.createElement 'script'
+    script.src      = 'https://www.youtube.com/iframe_api'
+    firstScriptTag  = document.getElementsByTagName('script')[0]
+    firstScriptTag.parentNode.insertBefore(script, firstScriptTag)
+
   getNewHeight = (originalWidth, originalHeight, newWidth) ->
     Math.round originalHeight / originalWidth * newWidth
 
@@ -97,10 +97,10 @@ class YouTubeIframePlayer
 
     # Do not resize parent if the iframe is supposed to be hidden
     unless isZeroOrEmpty(parent.style.opacity) or isZeroOrEmpty(parent.style.height)
-      parent.style.height   = "#{newHeight}px"
+      parent.style.height = "#{newHeight}px"
 
-    iframe.style.width    = "#{parentWidth}px"
-    iframe.style.height   = "#{newHeight}px"
+    iframe.style.width  = "#{parentWidth}px"
+    iframe.style.height = "#{newHeight}px"
 
   respondToResize: =>
     iframe = @player.getIframe()
