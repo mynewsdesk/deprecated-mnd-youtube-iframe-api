@@ -20,7 +20,7 @@
   },
   "scripts": {
     "prepublish": "cake build && cake minify",
-    "test": "echo foo"
+    "test": "cake test"
   },
   "engines": {
     "node": ">= 0.8.0"
