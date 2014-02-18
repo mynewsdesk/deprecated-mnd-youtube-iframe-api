@@ -28,7 +28,7 @@ class YouTubeIframePlayer
   isPlaying:      false
 
   constructor: (playerContainerId, videoId, width = 560, height = 315, playerVars = {}, responsiveIframe = false, resizeTimeout = 100) ->
-    unless YT? then @insertApi()
+    unless YT? then insertApi()
     Observable.addTo @
 
     @playerContainerId  = playerContainerId
@@ -39,7 +39,7 @@ class YouTubeIframePlayer
     @responsiveIframe   = responsiveIframe
     @resizeTimeout      = resizeTimeout
 
-  insertApi: ->
+  insertApi = ->
     script = document.createElement 'script'
     script.src = 'https://www.youtube.com/iframe_api'
     firstScriptTag = document.getElementsByTagName('script')[0]
