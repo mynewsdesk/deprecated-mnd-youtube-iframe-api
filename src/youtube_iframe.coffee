@@ -112,4 +112,5 @@ class YouTubeIframePlayer
         resizeIframe(iframe)
       , @resizeTimeout
 
+root.Observable = Observable if Testing?
 root.YouTubeIframePlayer = YouTubeIframePlayer
