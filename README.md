@@ -1,6 +1,6 @@
 MND YouTube Iframe API
 ======================
-Wrapper for the YouTube Iframe Api which simplifies event handling and provides responsiveness.
+Wrapper for the YouTube Iframe API which simplifies event handling and provides responsiveness.
 
 Dependencies
 ------------
