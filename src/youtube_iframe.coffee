@@ -102,11 +102,20 @@ class YouTubeIframePlayer
     iframe.style.width  = "#{parentWidth}px"
     iframe.style.height = "#{newHeight}px"
 
+  addEvent = (el, eventType, handler) ->
+    if el.addEventListener
+      el.addEventListener eventType, handler, false
+    else if el.attachEvent
+      el.attachEvent "on#{eventType}", handler
+    else
+      el["on#{eventType}"] = handler
+    return
+
   respondToResize: =>
     iframe = @player.getIframe()
     resizeIframe(iframe)
     timer = null
-    window.onresize = =>
+    addEvent window, 'resize', =>
       clearTimeout timer
       timer = setTimeout =>
         resizeIframe(iframe)
