@@ -18,6 +18,10 @@
     "type": "git",
     "url": "https://github.com/mynewsdesk/mnd-youtube-iframe-api"
   },
+  "scripts": {
+    "prepublish": "cake build && cake minify",
+    "test": "echo foo"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -25,6 +29,8 @@
     "coffee-script": ">= 1.7.1"
   },
   "devDependencies": {
+    "cake": "*",
+    "minify": "*",
     "mocha": ">= 1.17.1",
     "chai": ">= 1.9.0",
     "sinon-chai": "*"
