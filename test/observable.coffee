@@ -1,19 +1,4 @@
-root.Testing = true
-
-chai = require 'chai'
-sinon = require 'sinon'
-sinonChai = require 'sinon-chai'
-
-expect = chai.expect
-chai.use(sinonChai)
-
-{Observable, YouTubeIframePlayer} = require '../src/youtube_iframe'
-
-describe "Sanity", ->
-  it "is sane", ->
-    expect(true).to.be.true
-  it "is mochajs", ->
-    expect(process.env).to.exist
+{Observable} = require '../src/youtube_iframe'
 
 describe "Observable", ->
   class TestObservable
@@ -30,4 +15,3 @@ describe "Observable", ->
     observableInstance.testEvent()
 
     expect(eventHandler).to.have.been.calledOnce
-
