@@ -22,6 +22,21 @@ class Observable extends Mixin
   @notifyNewEvent = (item, data = {}) ->
     subscriber.callback(item, data) for subscriber in eventListeners when subscriber.item is item
 
+class IframeResizer
+  calculateNewHeight: (originalWidth, originalHeight, newWidth) ->
+    Math.round originalHeight / originalWidth * newWidth
+
+  resizeIframe: (iframe) ->
+    width         = iframe.width
+    height        = iframe.height
+    parent        = iframe.parentNode
+    parentWidth   = parent.offsetWidth
+    newHeight     = @calculateNewHeight(width, height, parentWidth)
+
+    parent.style.height = "#{newHeight}px"
+    iframe.style.width  = "#{parentWidth}px"
+    iframe.style.height = "#{newHeight}px"
+
 class YouTubeIframePlayer
 
   player:         null
@@ -38,6 +53,7 @@ class YouTubeIframePlayer
     @playerVars         = playerVars
     @responsiveIframe   = responsiveIframe
     @resizeTimeout      = resizeTimeout
+    @resizer            = new IframeResizer() if @responsiveIframe
 
   insertPlayer: ->
     @player = new YT.Player(@playerContainerId,
@@ -83,25 +99,6 @@ class YouTubeIframePlayer
     firstScriptTag  = document.getElementsByTagName('script')[0]
     firstScriptTag.parentNode.insertBefore(script, firstScriptTag)
 
-  getNewHeight = (originalWidth, originalHeight, newWidth) ->
-    Math.round originalHeight / originalWidth * newWidth
-
-  isZeroOrEmpty = (val) -> val is "0" or val is ""
-
-  resizeIframe = (iframe) ->
-    width         = iframe.width
-    height        = iframe.height
-    parent        = iframe.parentNode
-    parentWidth   = parent.offsetWidth
-    newHeight     = getNewHeight(width, height, parentWidth)
-
-    # Do not resize parent if the iframe is supposed to be hidden
-    unless isZeroOrEmpty(parent.style.opacity) or isZeroOrEmpty(parent.style.height)
-      parent.style.height = "#{newHeight}px"
-
-    iframe.style.width  = "#{parentWidth}px"
-    iframe.style.height = "#{newHeight}px"
-
   addEvent = (el, eventType, handler) ->
     if el.addEventListener
       el.addEventListener eventType, handler, false
@@ -113,13 +110,14 @@ class YouTubeIframePlayer
 
   respondToResize: =>
     iframe = @player.getIframe()
-    resizeIframe(iframe)
+    @resizer.resizeIframe(iframe)
     timer = null
     addEvent window, 'resize', =>
       clearTimeout timer
       timer = setTimeout =>
-        resizeIframe(iframe)
+        @resizer.resizeIframe(iframe)
       , @resizeTimeout
 
 root.Observable = Observable if Testing?
+root.IframeResizer = IframeResizer if Testing?
 root.YouTubeIframePlayer = YouTubeIframePlayer
