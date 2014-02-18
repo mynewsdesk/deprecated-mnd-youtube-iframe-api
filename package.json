@@ -1,0 +1,31 @@
+{
+  "name": "mnd-youtube-iframe-api",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [
+    "youtube",
+    "player",
+    "iframe",
+    "api",
+    "embed",
+    "responsive",
+    "mocha",
+    "test",
+    "coffeescript",
+    "coffee-script"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mynewsdesk/mnd-youtube-iframe-api"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "dependencies": {
+    "coffee-script": ">= 1.6.1"
+  },
+  "devDependencies": {
+    "mocha": ">= 1.17.1",
+    "chai": ">= 1.9.0"
+  }
+}
