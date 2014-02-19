@@ -1,7 +1,7 @@
 {
   "name": "mnd-youtube-iframe-api",
   "version": "0.0.1",
-  "description": "",
+  "description": "Wrapper for the YouTube Iframe API which simplifies event handling and provides responsiveness.",
   "keywords": [
     "youtube",
     "player",
