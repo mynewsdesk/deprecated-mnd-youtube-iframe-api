@@ -2,23 +2,44 @@
 <html>
 <head>
   <title>Mynewsdesk YouTube Iframe Api</title>
-  <style>
-    #container {
-      max-width: 800px;
-    }
-  </style>
+  <link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
 <div id="container">
+  <h1>Mynewsdesk YouTube Iframe Api</h1>
+  <p id="events">
+  &nbsp;
+  </p>
+  <h2>Responsive iframe</h2>
   <div id="video-container"></div>
+  <h2>Fixed iframe size</h2>
+  <div id="video-container-ex2"></div>
 </div>
 <script src="../lib/youtube_iframe.js"></script>
 <script>
   window.onload = function () {
     var player = new YouTubeIframePlayer('video-container', 'wRnSnfiUI54', '560', '315', {}, true, 50);
+    var playerEx2 = new YouTubeIframePlayer('video-container-ex2', 'wRnSnfiUI54', '560', '315', {}, false);
+    var events = document.getElementById('events');
     onYouTubeIframeAPIReady = function() {
       player.insertPlayer();
+      playerEx2.insertPlayer();
     }
+    var showEvent = function(eventName) {
+      events.innerHTML = "Event fired: " + eventName;
+    };
+    player.on('ready', function(name) {
+      showEvent(name);
+    });
+    player.on('playing', function(name) {
+      showEvent(name);
+    });
+    player.on('paused', function(name) {
+      showEvent(name);
+    });
+    player.on('ended', function(name) {
+      showEvent(name);
+    });
   }
 </script>
 </body>
