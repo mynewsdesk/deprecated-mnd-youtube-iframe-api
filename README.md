@@ -33,7 +33,6 @@ The event callbacks receives two arguments: event name and event data. All event
 * apiChange
 * unstarted
 * ended
-* seeking
 * playing
 * paused
 * buffering
