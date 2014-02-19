@@ -40,7 +40,6 @@ class IframeResizer
 class YouTubeIframePlayer
 
   player:         null
-  isPlaying:      false
 
   constructor: (playerContainerId, videoId, width = 560, height = 315, playerVars = {}, responsiveIframe = false, resizeTimeout = 100) ->
     unless YT? then insertApi()
@@ -54,6 +53,12 @@ class YouTubeIframePlayer
     @responsiveIframe   = responsiveIframe
     @resizeTimeout      = resizeTimeout
     @resizer            = new IframeResizer() if @responsiveIframe
+
+  # Basic controls
+  play:   -> @player.playVideo()
+  pause:  -> @player.pauseVideo()
+  mute:   -> @player.mute()
+  unMute: -> @player.unMute()
 
   insertPlayer: ->
     @player = new YT.Player(@playerContainerId,
@@ -82,12 +87,7 @@ class YouTubeIframePlayer
           switch e.data
             when YT.PlayerState.UNSTARTED then @notifyNewEvent 'unstarted', e.data
             when YT.PlayerState.ENDED then @notifyNewEvent 'ended', e.data
-            when YT.PlayerState.PLAYING
-              if @isPlaying
-                @notifyNewEvent 'seeking', e.data
-              else
-                @isPlaying = true
-                @notifyNewEvent 'playing', e.data
+            when YT.PlayerState.PLAYING then @notifyNewEvent 'playing', e.data
             when YT.PlayerState.PAUSED then @notifyNewEvent 'paused', e.data
             when YT.PlayerState.BUFFERING then @notifyNewEvent 'buffering', e.data
             when YT.PlayerState.CUED then @notifyNewEvent 'cued', e.data
