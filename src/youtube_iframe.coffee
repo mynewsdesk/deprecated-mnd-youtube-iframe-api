@@ -37,12 +37,31 @@ class IframeResizer
     iframe.style.width  = "#{parentWidth}px"
     iframe.style.height = "#{newHeight}px"
 
+class PlayerQueue
+  instance = null
+
+  class Privates
+    constructor: ->
+      script          = document.createElement 'script'
+      script.src      = 'https://www.youtube.com/iframe_api'
+      firstScriptTag  = document.getElementsByTagName('script')[0]
+      firstScriptTag.parentNode.insertBefore(script, firstScriptTag)
+    queue: []
+    addToQueue: (player) ->
+       unless YT? then @queue.push player else player.insertPlayer()
+    insertQueuedPlayers: ->
+      p.insertPlayer() for p in @queue
+  @get: ->
+    instance ?= new Privates()
+
+root.onYouTubeIframeAPIReady = ->
+  PlayerQueue.get().insertQueuedPlayers()
+
 class YouTubeIframePlayer
 
   player:         null
 
   constructor: (playerContainerId, videoId, width = 560, height = 315, playerVars = {}, responsiveIframe = false, resizeTimeout = 100) ->
-    unless YT? then insertApi()
     Observable.addTo @
 
     @playerContainerId  = playerContainerId
@@ -53,6 +72,7 @@ class YouTubeIframePlayer
     @responsiveIframe   = responsiveIframe
     @resizeTimeout      = resizeTimeout
     @resizer            = new IframeResizer() if @responsiveIframe
+    PlayerQueue.get().addToQueue(@)
 
   # Basic controls
   play:   -> @player.playVideo()
@@ -93,12 +113,6 @@ class YouTubeIframePlayer
             when YT.PlayerState.CUED then @notifyNewEvent 'cued', e.data
     )
 
-  insertApi = ->
-    script          = document.createElement 'script'
-    script.src      = 'https://www.youtube.com/iframe_api'
-    firstScriptTag  = document.getElementsByTagName('script')[0]
-    firstScriptTag.parentNode.insertBefore(script, firstScriptTag)
-
   addEvent = (el, eventType, handler) ->
     if el.addEventListener
       el.addEventListener eventType, handler, false
@@ -121,3 +135,4 @@ class YouTubeIframePlayer
 root.Observable = Observable if Testing?
 root.IframeResizer = IframeResizer if Testing?
 root.YouTubeIframePlayer = YouTubeIframePlayer
+root.PlayerQueue = PlayerQueue

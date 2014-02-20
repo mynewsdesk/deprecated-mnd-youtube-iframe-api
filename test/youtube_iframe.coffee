@@ -2,8 +2,6 @@
 
 describe "YouTubeIframePlayer", ->
   describe "constructor", ->
-    before ->
-      global.YT = {} # Avoid insertApi()
 
     it "has default values", ->
       player = new YouTubeIframePlayer('foo', 'bar')
