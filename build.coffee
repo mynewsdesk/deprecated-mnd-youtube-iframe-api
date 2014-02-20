@@ -14,8 +14,11 @@ buildDir = process.argv[2] or __dirname + '/test/build/'
 template = fs.readFileSync __dirname + '/phantom.eco', 'utf-8'
 
 files = fs.readdirSync __dirname + '/test/'
+filenames = []
+
 for file in files
   fileName = file
   if fileName.match SPEC_FILE_CONVENTION
-    view = 'filename' : '../js/test/' + file.replace('coffee', 'js')
-    fs.writeFileSync buildDir + 'html/' + file.replace('coffee', 'html'), (eco.render template, view)
+    filenames.push '../js/test/' + file.replace('coffee', 'js')
+
+fs.writeFileSync buildDir + 'html/index.html', (eco.render template, { filenames: filenames })

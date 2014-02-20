@@ -25,7 +25,9 @@
         //chai.use(sinonChai);
     </script>
     <script src="../js/src/youtube_iframe.js"></script>
-    <script src="<%= @filename %>"></script>
+    <% for filename in @filenames: %>
+    <script src="<%= filename %>"></script>
+    <% end %>
     <script>
         if (window.mochaPhantomJS) {
             mochaPhantomJS.run();
