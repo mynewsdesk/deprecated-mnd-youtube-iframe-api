@@ -11,7 +11,7 @@ fs  = require 'fs'
 
 buildDir = process.argv[2] or __dirname + '/test/build/'
 
-template = fs.readFileSync __dirname + '/phantom.eco', 'utf-8'
+template = fs.readFileSync __dirname + '/test/phantom.eco', 'utf-8'
 
 files = fs.readdirSync __dirname + '/test/'
 filenames = []
@@ -19,6 +19,6 @@ filenames = []
 for file in files
   fileName = file
   if fileName.match SPEC_FILE_CONVENTION
-    filenames.push '../js/test/' + file.replace('coffee', 'js')
+    filenames.push 'js/test/' + file.replace('coffee', 'js')
 
-fs.writeFileSync buildDir + 'html/index.html', (eco.render template, { filenames: filenames })
+fs.writeFileSync buildDir + 'index.html', (eco.render template, { filenames: filenames })
