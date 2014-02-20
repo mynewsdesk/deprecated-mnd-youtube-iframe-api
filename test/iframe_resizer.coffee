@@ -1,5 +1,3 @@
-{IframeResizer} = require '../src/youtube_iframe'
-
 describe "IframeResizer", ->
   before ->
     @resizer = new IframeResizer()

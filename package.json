@@ -32,6 +32,9 @@
     "minify": "*",
     "mocha": ">= 1.17.1",
     "chai": ">= 1.9.0",
-    "sinon-chai": "*"
+    "sinon-chai": "*",
+    "eco": "*",
+    "phantomjs": "*",
+    "mocha-phantomjs": "*"
   }
 }

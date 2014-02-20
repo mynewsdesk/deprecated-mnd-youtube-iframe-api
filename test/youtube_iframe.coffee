@@ -1,5 +1,3 @@
-{YouTubeIframePlayer} = require '../src/youtube_iframe'
-
 describe "YouTubeIframePlayer", ->
   describe "constructor", ->
 
