@@ -50,3 +50,16 @@ Constructor arguments
 | [playerVars](https://developers.google.com/youtube/player_parameters) | Object | Options for YouTube iframe | {} |
 | responsiveIframe | Boolean | Adjust iframe size by parent container | false |
 | resizeTimeout | Integer | How long to wait between resizes | 100 |
+
+Developers
+----------
+
+You can run the tests on the console:
+```
+npm test
+```
+
+Or in your favorite web browser:
+```
+npm run open-tests
+```

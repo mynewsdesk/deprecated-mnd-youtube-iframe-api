@@ -19,8 +19,11 @@
     "url": "https://github.com/mynewsdesk/mnd-youtube-iframe-api"
   },
   "scripts": {
-    "prepublish": "cake build && cake minify",
-    "test": "cake test"
+    "postinstall": "cake init-tests",
+    "pretest": "cake build-tests",
+    "test": "cake test",
+    "open-tests": "cake open-tests",
+    "prepublish": "cake build && cake minify"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -32,6 +35,9 @@
     "minify": "*",
     "mocha": ">= 1.17.1",
     "chai": ">= 1.9.0",
-    "sinon-chai": "*"
+    "sinon-chai": "*",
+    "eco": "*",
+    "phantomjs": "*",
+    "mocha-phantomjs": "*"
   }
 }

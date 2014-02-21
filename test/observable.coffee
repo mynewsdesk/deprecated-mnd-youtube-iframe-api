@@ -1,5 +1,3 @@
-{Observable} = require '../src/youtube_iframe'
-
 describe "Observable", ->
   class TestObservable
     constructor: ->

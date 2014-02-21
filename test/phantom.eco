@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>Tests</title>
+    <link rel="stylesheet" href="mocha.css" />
+    <script>
+    </script>
+</head>
+<body>
+    <div id="mocha"></div>
+    <script src="js/vendor/mocha.js"></script>
+    <script src="js/vendor/chai.js"></script>
+    <script src="js/vendor/sinon.js"></script>
+    <script src="js/vendor/sinon-chai.js"></script>
+    <script>
+        Testing = true;
+
+        mocha.ui('bdd');
+        mocha.timeout(4000);
+        mocha.globals([]);
+        mocha.slow(0); // show all time taken
+        mocha.reporter('html');
+        var expect = chai.expect // for use with undefined
+        //chai.use(sinonChai);
+    </script>
+    <script src="js/src/youtube_iframe.js"></script>
+    <% for filename in @filenames: %>
+    <script src="<%= filename %>"></script>
+    <% end %>
+    <script>
+        if (window.mochaPhantomJS) {
+            mochaPhantomJS.run();
+        } else {
+            mocha.run();
+        }
+    </script>
+</body>
+</html>
