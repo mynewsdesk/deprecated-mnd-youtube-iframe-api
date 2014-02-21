@@ -51,6 +51,7 @@ class PlayerQueue
        unless YT? then @queue.push player else player.insertPlayer()
     insertQueuedPlayers: ->
       p.insertPlayer() for p in @queue
+      @queue = []
   @get: ->
     instance ?= new Privates()
 
