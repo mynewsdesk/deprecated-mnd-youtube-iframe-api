@@ -114,15 +114,6 @@ class YouTubeIframePlayer
             when YT.PlayerState.CUED then @notifyNewEvent 'cued', e.data
     )
 
-  addEvent = (el, eventType, handler) ->
-    if el.addEventListener
-      el.addEventListener eventType, handler, false
-    else if el.attachEvent
-      el.attachEvent "on#{eventType}", handler
-    else
-      el["on#{eventType}"] = handler
-    return
-
   respondToResize: =>
     iframe = @player.getIframe()
     @resizer.resizeIframe(iframe)
@@ -132,6 +123,15 @@ class YouTubeIframePlayer
       timer = setTimeout =>
         @resizer.resizeIframe(iframe)
       , @resizeTimeout
+
+addEvent = (el, eventType, handler) ->
+  if el.addEventListener
+    el.addEventListener eventType, handler, false
+  else if el.attachEvent
+    el.attachEvent "on#{eventType}", handler
+  else
+    el["on#{eventType}"] = handler
+  return
 
 root.Observable = Observable if Testing?
 root.IframeResizer = IframeResizer if Testing?
