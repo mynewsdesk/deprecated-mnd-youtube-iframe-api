@@ -1,46 +1,67 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Mynewsdesk YouTube Iframe Api</title>
-  <link rel="stylesheet" href="css/demo.css">
-</head>
-<body>
-<div id="container">
-  <h1>Mynewsdesk YouTube Iframe Api</h1>
-  <p id="events">
-  &nbsp;
-  </p>
-  <h2>Responsive iframe</h2>
-  <div id="video-container"></div>
-  <h2>Fixed iframe size</h2>
-  <div id="video-container-ex2"></div>
-</div>
-<script src="../lib/youtube_iframe.js"></script>
-<script>
-  window.onload = function () {
-    var player = new YouTubeIframePlayer('video-container', 'wRnSnfiUI54', '560', '315', {}, true, 50);
-    var playerEx2 = new YouTubeIframePlayer('video-container-ex2', 'wRnSnfiUI54', '560', '315', {}, false);
-    var events = document.getElementById('events');
-    onYouTubeIframeAPIReady = function() {
-      player.insertPlayer();
-      playerEx2.insertPlayer();
-    }
-    var showEvent = function(eventName) {
-      events.innerHTML = "Event fired: " + eventName;
-    };
-    player.on('ready', function(name) {
-      showEvent(name);
-    });
-    player.on('playing', function(name) {
-      showEvent(name);
-    });
-    player.on('paused', function(name) {
-      showEvent(name);
-    });
-    player.on('ended', function(name) {
-      showEvent(name);
-    });
-  }
-</script>
-</body>
+  <head>
+    <title>Mynewsdesk YouTube Iframe Api</title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/demo.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="container">
+      <div id="container">
+        <h1>Mynewsdesk YouTube Iframe Api</h1>
+        <p id="events">
+        &nbsp;
+        </p>
+        <h2>Responsive iframe</h2>
+        <div id="video-container"></div>
+        <h3>External controls</h3>
+        <div>
+          <button type="button" class="btn">Play</button>
+          <button type="button" class="btn">Puase</button>
+          <button type="button" class="btn">Mute</button>
+          <button type="button" class="btn">Unmute</button>
+        </div>
+        <h2>Fixed iframe size</h2>
+        <div id="video-container-ex2"></div>
+      </div>
+    </div>
+    <script src="../lib/youtube_iframe.js"></script>
+    <script>
+      window.onload = function () {
+        var player = new YouTubeIframePlayer('video-container', 'wRnSnfiUI54', '560', '315', {}, true, 50);
+        var playerEx2 = new YouTubeIframePlayer('video-container-ex2', 'wRnSnfiUI54', '560', '315', { showinfo: 0, theme: 'light' }, false);
+        var events = document.getElementById('events');
+        var showEvent = function(eventName) {
+          return events.innerHTML = "Event fired: <span class='label label-info'>" + eventName + "</span>";
+        };
+        player.on('ready', function(name) {
+          showEvent(name);
+        });
+        player.on('playing', function(name) {
+          showEvent(name);
+        });
+        player.on('paused', function(name) {
+          showEvent(name);
+        });
+        player.on('ended', function(name) {
+          showEvent(name);
+        });
+        // Controls
+        var controls = document.getElementsByTagName('button');
+        controls[0].addEventListener('click', function() {
+          player.play();
+        });
+        controls[1].addEventListener('click', function() {
+          player.pause();
+        });
+        controls[2].addEventListener('click', function() {
+          player.mute();
+        });
+        controls[3].addEventListener('click', function() {
+          player.unMute();
+        });
+      }
+    </script>
+  </body>
 </html>
