@@ -135,5 +135,6 @@ class YouTubeIframePlayer
 
 root.Observable = Observable if Testing?
 root.IframeResizer = IframeResizer if Testing?
+root.PlayerQueue = PlayerQueue if Testing?
+
 root.YouTubeIframePlayer = YouTubeIframePlayer
-root.PlayerQueue = PlayerQueue
