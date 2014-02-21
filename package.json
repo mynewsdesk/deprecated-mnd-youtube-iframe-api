@@ -19,7 +19,7 @@
     "url": "https://github.com/mynewsdesk/mnd-youtube-iframe-api"
   },
   "scripts": {
-    "postuninstall": "cake init-tests",
+    "postinstall": "cake init-tests",
     "pretest": "cake build-tests",
     "test": "cake test",
     "open-tests": "cake open-tests",

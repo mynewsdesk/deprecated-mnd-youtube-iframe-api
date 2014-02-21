@@ -31,7 +31,7 @@ task "init-tests", "build test environment", ->
   exec "#{NODE_MODULES_DIR}.bin/coffee build-tests.coffee #{TEST_BUILD_DIR}"
 
 task "prep-tests", "create the test directory structure", ->
-  exec "mkdir .p TEST_BUILD_DIR", swallow
+  exec "mkdir .p #{TEST_BUILD_DIR}", swallow
   exec "mkdir .p #{TEST_BUILD_DIR}js", swallow
   exec "mkdir .p #{TEST_BUILD_DIR}js/src", swallow
   exec "mkdir .p #{TEST_BUILD_DIR}js/test", swallow
