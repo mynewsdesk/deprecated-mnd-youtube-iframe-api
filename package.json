@@ -23,7 +23,8 @@
     "pretest": "cake build-tests",
     "test": "cake test",
     "open-tests": "cake open-tests",
-    "prepublish": "cake build && cake minify"
+    "prepublish": "cake build && cake minify",
+    "demo": "cake open-demo"
   },
   "engines": {
     "node": ">= 0.8.0"

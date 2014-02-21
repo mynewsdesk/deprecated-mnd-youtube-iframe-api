@@ -15,10 +15,13 @@ task "build", "build javascript", ->
 task "minify", "minfy javascript", ->
   exec "#{NODE_MODULES_DIR}.bin/minify lib/youtube_iframe.js lib/youtube_iframe.min.js", error
 
+task "open-demo", "launch the demo in a web browser", ->
+  exec "open demo/index.html"
+
 task "test", "run tests on the console", ->
   exec "#{NODE_MODULES_DIR}.bin/mocha-phantomjs #{TEST_BUILD_DIR}index.html", display
 
-task "open-tests", "launch tests in web browser", ->
+task "open-tests", "launch tests in a web browser", ->
   exec "open #{TEST_BUILD_DIR}index.html"
 
 task "build-tests", "compile our coffee", ->
