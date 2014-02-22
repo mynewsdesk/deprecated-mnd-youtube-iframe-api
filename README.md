@@ -41,15 +41,15 @@ The event callbacks receives two arguments: event name and event data. All event
 
 Constructor arguments
 ---------------------
-| Name | Type | Description | Default value |
-| ---- | ---- | ----------- | ------------- |
-| playerContainerId | String | The id of the element to be replaced by the iframe. | undefined |
-| videoId | String | YouTube video id. | undefined |
-| width | Integer | Initial width. | 560 |
-| height | Integer | Initial height. | 315 |
-| [playerVars](https://developers.google.com/youtube/player_parameters) | Object | Options for YouTube iframe | {} |
-| responsiveIframe | Boolean | Adjust iframe size by parent container | false |
-| resizeTimeout | Integer | How long to wait between resizes | 100 |
+| Name                                                                  | Type    | Description                                         | Default value |
+| ----                                                                  | ----    | -----------                                         | ------------- |
+| playerContainerId                                                     | String  | The id of the element to be replaced by the iframe. | undefined     |
+| videoId                                                               | String  | YouTube video id.                                   | undefined     |
+| width                                                                 | Integer | Initial width.                                      | 560           |
+| height                                                                | Integer | Initial height.                                     | 315           |
+| [playerVars](https://developers.google.com/youtube/player_parameters) | Object  | Options for YouTube iframe.                         | {}            |
+| responsiveIframe                                                      | Boolean | Adjust iframe size by parent container.             | false         |
+| resizeTimeout                                                         | Integer | How long to wait between resizes.                   | 100           |
 
 Developers
 ----------
