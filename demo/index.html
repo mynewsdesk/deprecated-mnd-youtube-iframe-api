@@ -38,6 +38,9 @@
         player.on('ready', function(obj) {
           showEvent('Ready');
         });
+        player.on('ready', function(name) {
+          showEvent(name);
+        });
         player.on('playing', function(obj) {
           showEvent('Playing');
         });
