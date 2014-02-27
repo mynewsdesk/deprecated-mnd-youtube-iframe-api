@@ -14,6 +14,8 @@ class IframeResizer
   calculateNewHeight: (originalWidth, originalHeight, newWidth) ->
     Math.round originalHeight / originalWidth * newWidth
 
+  isZeroOrEmpty = (val) -> val is "0" or val is ""
+
   resizeIframe: (iframe) ->
     width         = iframe.width
     height        = iframe.height
@@ -21,7 +23,8 @@ class IframeResizer
     parentWidth   = parent.offsetWidth
     newHeight     = @calculateNewHeight(width, height, parentWidth)
 
-    parent.style.height = "#{newHeight}px"
+    unless isZeroOrEmpty(parent.style.opacity) or isZeroOrEmpty(parent.style.height)
+      parent.style.height = "#{newHeight}px"
     iframe.style.width  = "#{parentWidth}px"
     iframe.style.height = "#{newHeight}px"
 
