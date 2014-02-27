@@ -48,7 +48,7 @@ root.onYouTubeIframeAPIReady = ->
 
 class YouTubeIframePlayer
 
-  constructor: (playerContainerId, videoId, width = 560, height = 315, playerVars = {}, responsiveIframe = false, resizeTimeout = 100) ->
+  constructor: (playerContainerId, videoId, width = 560, height = 315, playerVars = {}, responsiveIframe = false, initialResize = true, resizeTimeout = 100) ->
 
     @playerContainerId  = playerContainerId
     @videoId            = videoId
@@ -56,6 +56,7 @@ class YouTubeIframePlayer
     @height             = height
     @playerVars         = playerVars
     @responsiveIframe   = responsiveIframe
+    @initialResize      = initialResize
     @resizeTimeout      = resizeTimeout
     @resizer            = new IframeResizer() if @responsiveIframe
     @player             = null
@@ -109,7 +110,7 @@ class YouTubeIframePlayer
 
   respondToResize: =>
     iframe = @player.getIframe()
-    @resizer.resizeIframe(iframe)
+    @resizer.resizeIframe(iframe) if @initialResize
     timer = null
     addEvent window, 'resize', =>
       clearTimeout timer
