@@ -10,18 +10,6 @@
 ###
 root = exports ? this
 
-class Mixin
-  @addTo: (obj)->
-    for name, method of @
-      obj[name] = method
-
-class Observable extends Mixin
-  eventListeners = []
-  @on: (to, onNewEvent) ->
-    eventListeners.push item: to, callback: onNewEvent
-  @notifyNewEvent = (item, data = {}) ->
-    subscriber.callback(item, data) for subscriber in eventListeners when subscriber.item is item
-
 class IframeResizer
   calculateNewHeight: (originalWidth, originalHeight, newWidth) ->
     Math.round originalHeight / originalWidth * newWidth
@@ -60,10 +48,7 @@ root.onYouTubeIframeAPIReady = ->
 
 class YouTubeIframePlayer
 
-  player:         null
-
   constructor: (playerContainerId, videoId, width = 560, height = 315, playerVars = {}, responsiveIframe = false, resizeTimeout = 100) ->
-    Observable.addTo @
 
     @playerContainerId  = playerContainerId
     @videoId            = videoId
@@ -73,6 +58,8 @@ class YouTubeIframePlayer
     @responsiveIframe   = responsiveIframe
     @resizeTimeout      = resizeTimeout
     @resizer            = new IframeResizer() if @responsiveIframe
+    @player             = null
+    @eventListeners     = []
     PlayerQueue.get().addToQueue(@)
 
   # Basic controls
@@ -114,6 +101,12 @@ class YouTubeIframePlayer
             when YT.PlayerState.CUED then @notifyNewEvent 'cued', e.data
     )
 
+  on: (to, onNewEvent) ->
+    @eventListeners.push item: to, callback: onNewEvent
+
+  notifyNewEvent: (item, data = {}) ->
+    subscriber.callback(item, data) for subscriber in @eventListeners when subscriber.item is item
+
   respondToResize: =>
     iframe = @player.getIframe()
     @resizer.resizeIframe(iframe)
@@ -133,7 +126,6 @@ addEvent = (el, eventType, handler) ->
     el["on#{eventType}"] = handler
   return
 
-root.Observable = Observable if Testing?
 root.IframeResizer = IframeResizer if Testing?
 root.PlayerQueue = PlayerQueue if Testing?
 

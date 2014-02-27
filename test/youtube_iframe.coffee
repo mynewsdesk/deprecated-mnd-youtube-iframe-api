@@ -24,3 +24,11 @@ describe "YouTubeIframePlayer", ->
       expect(player.playerVars).to.equal(expectedVars)
       expect(player.responsiveIframe).to.be.true
       expect(player.resizeTimeout).to.equal(expectedResizeTimeout)
+
+  describe "event listener", ->
+    it "accepts event listeners", ->
+      player = new YouTubeIframePlayer('foo', 'bar')
+      eventHandler = sinon.spy()
+      player.on 'eventName', eventHandler
+      player.notifyNewEvent 'eventName'
+      expect(eventHandler).to.have.been.calledOnce
