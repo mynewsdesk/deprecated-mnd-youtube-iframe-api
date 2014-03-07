@@ -17,7 +17,7 @@ describe "IframeResizer", ->
       @iframe.style = sinon.stub()
 
       @iframe.parentNode = sinon.stub()
-      @iframe.parentNode.offsetWidth = 320
+      @iframe.parentNode.clientWidth = 320
       @iframe.parentNode.style = sinon.stub()
 
     it "resizes the iframe", ->
