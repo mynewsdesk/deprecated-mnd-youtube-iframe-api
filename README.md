@@ -11,7 +11,7 @@ Examples
 ```javascript
 var player = new YouTubeIframePlayer('video-container', 'wRnSnfiUI54');
 
-// Optional: overwrite this method if you wish to control when the player is inserted.
+// Optional: overwrite this method like below if you wish to control when the player is inserted.
 // By default the player will be inserted when the YouTube API is ready.
 onYouTubeIframeAPIReady = function() {
   player.insertPlayer();
