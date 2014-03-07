@@ -11,7 +11,8 @@ Examples
 ```javascript
 var player = new YouTubeIframePlayer('video-container', 'wRnSnfiUI54');
 
-// Insert the player once the YouTube API has been loaded into the document.
+// Optional: overwrite this method if you wish to control when the player is inserted.
+// By default the player will be inserted when the YouTube API is ready.
 onYouTubeIframeAPIReady = function() {
   player.insertPlayer();
 }
@@ -24,7 +25,7 @@ player.on('ended', function() {
 
 Events
 ------
-The event callbacks receives two arguments: event name and event data. All events forward the data from the YouTube API. The error event provides error code and message (data.code and data.message).
+All events forward the data from the YouTube API. The error event provides error code and message (data.code and data.message).
 
 * ready
 * error
