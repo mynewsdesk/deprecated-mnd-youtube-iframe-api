@@ -8,17 +8,16 @@ describe "YouTubeIframePlayer", ->
       expect(player.height).to.equal(315)
       expect(player.playerVars).to.be.empty
       expect(player.responsiveIframe).to.be.false
-      expect(player.resizeTimeout).to.equal(100)
+      expect(player.resizeTimeout).to.equal(500)
 
     it "stores values correctly", ->
       expectedWidth = 320
       expectedHeight = 160
       expectedVars = { awesome: true }
       expectedResponsive = true
-      expeectedInitialResize = true
       expectedResizeTimeout = 500
 
-      player = new YouTubeIframePlayer('foo', 'bar', expectedWidth, expectedHeight, expectedVars, expectedResponsive, expeectedInitialResize, expectedResizeTimeout )
+      player = new YouTubeIframePlayer('foo', 'bar', expectedWidth, expectedHeight, expectedVars, expectedResponsive, expectedResizeTimeout )
 
       expect(player.width).to.equal(expectedWidth)
       expect(player.height).to.equal(expectedHeight)

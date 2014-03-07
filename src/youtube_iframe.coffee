@@ -20,11 +20,9 @@ class IframeResizer
     width         = iframe.width
     height        = iframe.height
     parent        = iframe.parentNode
-    parentWidth   = parent.offsetWidth
+    parentWidth   = parent.clientWidth
     newHeight     = @calculateNewHeight(width, height, parentWidth)
 
-    unless isZeroOrEmpty(parent.style.opacity) or isZeroOrEmpty(parent.style.height)
-      parent.style.height = "#{newHeight}px"
     iframe.style.width  = "#{parentWidth}px"
     iframe.style.height = "#{newHeight}px"
 
@@ -51,7 +49,7 @@ root.onYouTubeIframeAPIReady = ->
 
 class YouTubeIframePlayer
 
-  constructor: (playerContainerId, videoId, width = 560, height = 315, playerVars = {}, responsiveIframe = false, initialResize = true, resizeTimeout = 100) ->
+  constructor: (playerContainerId, videoId, width = 560, height = 315, playerVars = {}, responsiveIframe = false, resizeTimeout = 500) ->
 
     @playerContainerId  = playerContainerId
     @videoId            = videoId
@@ -59,7 +57,6 @@ class YouTubeIframePlayer
     @height             = height
     @playerVars         = playerVars
     @responsiveIframe   = responsiveIframe
-    @initialResize      = initialResize
     @resizeTimeout      = resizeTimeout
     @resizer            = new IframeResizer() if @responsiveIframe
     @player             = null
@@ -113,22 +110,15 @@ class YouTubeIframePlayer
 
   respondToResize: =>
     iframe = @player.getIframe()
-    @resizer.resizeIframe(iframe) if @initialResize
-    timer = null
-    addEvent window, 'resize', =>
-      clearTimeout timer
-      timer = setTimeout =>
+    parent = iframe.parentNode
+    parentWidth = 0
+    (timer = =>
+      pw = parent.clientWidth
+      if pw != parentWidth
         @resizer.resizeIframe(iframe)
-      , @resizeTimeout
-
-addEvent = (el, eventType, handler) ->
-  if el.addEventListener
-    el.addEventListener eventType, handler, false
-  else if el.attachEvent
-    el.attachEvent "on#{eventType}", handler
-  else
-    el["on#{eventType}"] = handler
-  return
+        parentWidth = pw
+      setTimeout timer, @resizeTimeout
+    )()
 
 root.IframeResizer = IframeResizer if Testing?
 root.PlayerQueue = PlayerQueue if Testing?
