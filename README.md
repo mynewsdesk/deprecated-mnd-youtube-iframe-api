@@ -18,7 +18,7 @@ onYouTubeIframeAPIReady = function() {
 }
 
 // Hook up to an event.
-player.on('ended', function() {
+player.on('ended', function(data) {
   alert("Thanks for watching");
 });
 ```
