@@ -109,7 +109,7 @@ class YouTubeIframePlayer
     @eventListeners.push item: to, callback: onNewEvent
 
   notifyNewEvent: (item, data = {}) ->
-    subscriber.callback(item, data) for subscriber in @eventListeners when subscriber.item is item
+    subscriber.callback(@player, data) for subscriber in @eventListeners when subscriber.item is item
 
   respondToResize: =>
     iframe = @player.getIframe()

@@ -35,17 +35,17 @@
         var showEvent = function(eventName) {
           return events.innerHTML = "Event fired: <span class='label label-info'>" + eventName + "</span>";
         };
-        player.on('ready', function(name) {
-          showEvent(name);
+        player.on('ready', function(obj) {
+          showEvent('Ready');
         });
-        player.on('playing', function(name) {
-          showEvent(name);
+        player.on('playing', function(obj) {
+          showEvent('Playing');
         });
-        player.on('paused', function(name) {
-          showEvent(name);
+        player.on('paused', function(obj) {
+          showEvent('Paused');
         });
-        player.on('ended', function(name) {
-          showEvent(name);
+        player.on('ended', function(obj) {
+          showEvent('Ended');
         });
         // Controls
         var controls = document.getElementsByTagName('button');
