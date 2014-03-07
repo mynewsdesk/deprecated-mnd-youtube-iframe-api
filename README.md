@@ -49,7 +49,8 @@ Constructor arguments
 | width                                                                 | Integer | Initial width.                                      | 560           |
 | height                                                                | Integer | Initial height.                                     | 315           |
 | [playerVars](https://developers.google.com/youtube/player_parameters) | Object  | Options for YouTube iframe.                         | {}            |
-| responsiveIframe                                                      | Boolean | Adjust iframe size by parent container.             | false         |
+| responsiveIframe | Boolean | Adjust iframe size by parent container. | false |
+| initialResize | Boolean | Initially adjust the iframe to its parent. | true |
 | resizeTimeout                                                         | Integer | How long to wait between resizes.                   | 100           |
 
 Developers
