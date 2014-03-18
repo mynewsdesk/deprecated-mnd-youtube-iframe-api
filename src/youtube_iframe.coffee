@@ -14,8 +14,6 @@ class IframeResizer
   calculateNewHeight: (originalWidth, originalHeight, newWidth) ->
     Math.round originalHeight / originalWidth * newWidth
 
-  isZeroOrEmpty = (val) -> val is "0" or val is ""
-
   resizeIframe: (iframe) ->
     width         = iframe.width
     height        = iframe.height
